@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/30 18:41:36 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/04/18 15:00:36 by mde-souz         ###   ########.fr       */
+/*   Created: 2024/04/21 16:32:59 by murilodsd         #+#    #+#             */
+/*   Updated: 2024/04/30 17:55:39 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/**
- * Outputs the string 's' to the given file descriptor.
- *
- * @param s The string to be outputted.
- * @param fd The file descriptor to write the string to.
- */
-void	ft_putstr_fd(char *s, int fd)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	while (*s)
+	unsigned int	i;
+
+	if (size > 0)
 	{
-		ft_putchar_fd(*s, fd);
-		s++;
+		size--;
+		i = 0;
+		while (size-- && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
+	return (ft_strlen(src));
 }
 /* #include <stdio.h>
-#include <stdlib.h>
-int	main(int argc, char **argv)
+#include <string.h>
+int	main(void)
 {
-	argc = argc;
-	ft_putstr_fd(argv[1],atoi(argv[2]));
-} */
+	char	dest[10];
+	strlcpy(dest,"teste",5);
+	printf("%s",dest);
+}
+ */

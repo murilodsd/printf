@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:52:36 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/05 07:41:17 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:44:09 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ typedef struct s_list
 }	t_list;
 
 /*Outputs the character ’c’ to the given file descriptor.*/
-void	ft_putchar_fd(char c, int fd);
+int		ft_putchar_fd(char c, int fd);
 /*Outputs the string ’s’ to the given file descriptor.*/
-void	ft_putstr_fd(char *s, int fd);
+int		ft_putstr_fd(char *s, int fd);
 /* Applies the function ’f’ on each character of
 the string passed as argument, passing its index
 as first argument. Each character is passed by
@@ -40,7 +40,7 @@ size_t	ft_strlen(const char *s);
 /*Outputs the string 's' to the given file descriptor followed by a newline.*/
 void	ft_putendl_fd(char *s, int fd);
 /*Outputs the integer ’n’ to the given file descriptor.*/
-void	ft_putnbr_fd(int n, int fd);
+int		ft_putnbr_fd(int n, int fd);
 /* checks  for an alphabetic character; in the standard "C" locale,
 it is equivalent to (isupper(c) ||  islower(c)).   In  some  lo‐
 cales, there may be additional characters for which isalpha() is
@@ -108,5 +108,4 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_toupper(int c);
 int		ft_tolower(int c);
-void	ft_putunbr_fd(unsigned int nb, int fd);
 #endif

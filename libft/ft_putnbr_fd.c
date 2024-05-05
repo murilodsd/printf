@@ -6,35 +6,38 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:29:48 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/05 07:38:13 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:50:08 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /** Outputs the integer ’n’ to the given file descriptor.
 * @param n: The integer to be outputted.
 * @param fd: The file descriptor to write the output to.
+* @return number of character printed
 */
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n, int fd)
 {
 	unsigned int	nb;
+	int			count;
 
+	count = 0;
 	if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
+		count += ft_putchar_fd('-', fd);
 		nb = -n;
 	}
 	else
 		nb = n;
 	if (nb < 10)
 	{
-		ft_putchar_fd(nb + '0', fd);
+		count += ft_putchar_fd(nb + '0', fd);
 		return ;
 	}
-	ft_putnbr_fd(nb / 10, fd);
-	ft_putchar_fd(nb % 10 + '0', fd);
-	return ;
+	count += ft_putnbr_fd(nb / 10, fd);
+	count += ft_putchar_fd(nb % 10 + '0', fd);
+	return (count);
 }
 /* #include <stdio.h>
 int	main(void)

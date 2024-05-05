@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunbr_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putunbr_base_fd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 07:38:34 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/05 20:43:02 by mde-souz         ###   ########.fr       */
+/*   Created: 2024/05/05 18:46:07 by mde-souz          #+#    #+#             */
+/*   Updated: 2024/05/05 20:30:48 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/** Outputs the integer ’n’ to the given file descriptor.
-* @param n: The unsigned integer to be outputted.
-* @param fd: The file descriptor to write the output to.
-*/
 #include "libftprintf.h"
 
-int	ft_putunbr_fd(unsigned int nb, int fd)
+static int	convert(unsigned long nbr, char *base, int fd)
 {
-	int	count;
-	
+	unsigned long	length;
+	int				count;
+
+	length = ft_strlen(base);
 	count = 0;
-	if (nb < 10)
+	if (nbr < length)
 	{
-		ft_putchar_fd(nb + '0', fd);
-		return (1);
+		ft_putchar_fd(base[nbr % length],fd);
+		count++;
 	}
-	count += ft_putunbr_fd(nb / 10, fd);
-	count += ft_putchar_fd(nb % 10 + '0', fd);
+	else
+	{
+		count += convert(nbr / length, base, fd);
+		count += convert(nbr % length, base, fd);
+	}
 	return (count);
+}
+
+int	ft_putunbr_base_fd(long nbr, char *base, int fd)
+{
+	if (check_base(base) == 0)
+		return (0);
+	return (convert(nbr, base, fd));
 }
