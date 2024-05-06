@@ -6,11 +6,11 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:46:07 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/05 20:30:48 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:42:19 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static int	convert(unsigned long nbr, char *base, int fd)
 {

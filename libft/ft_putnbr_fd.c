@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:29:48 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/05 20:50:08 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:33:22 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int	ft_putnbr_fd(int n, int fd)
 {
 	unsigned int	nb;
-	int			count;
+	int				count;
 
 	count = 0;
 	if (n < 0)
@@ -33,7 +33,7 @@ int	ft_putnbr_fd(int n, int fd)
 	if (nb < 10)
 	{
 		count += ft_putchar_fd(nb + '0', fd);
-		return ;
+		return (count);
 	}
 	count += ft_putnbr_fd(nb / 10, fd);
 	count += ft_putchar_fd(nb % 10 + '0', fd);

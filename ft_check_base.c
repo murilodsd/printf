@@ -6,11 +6,11 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:49:25 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/05 19:24:41 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:42:10 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	check_base(char *base)
 {

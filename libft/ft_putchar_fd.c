@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 13:10:56 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/05 20:46:52 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:06:47 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param c The character to write.
  * @param fd The file descriptor to write to.
  */
-void	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 	return (1);
