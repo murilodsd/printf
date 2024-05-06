@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:29:48 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/06 22:58:02 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:55:51 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 static int	ft_countdec(long n_long)
 {
 	int	count;
-
+	
+	if (n_long < 0)
+		n_long = -n_long;
 	count = 1;
 	while (n_long > 9)
 	{
@@ -71,21 +73,32 @@ int	ft_printnbr_fd(int nbr, Flag flags, int fd)
 	{
 		while (flags.width-- > decplaces + (nbr < 0))
 			count += ft_putchar_fd(' ',1);
-		if (nbr < 0)
-			count += ft_putchar_fd('-',1);
 	}
 	else
-		while (flags.width-- > flags.digits + (flags.space || flags.plus))
+	{
+		while (flags.width-- > flags.digits + (flags.space || flags.plus || (nbr < 0)))
 			count += ft_putchar_fd(' ',1);
-			
-	return (count);
+	}
+	if (nbr < 0)
+			count += ft_putchar_fd('-',1);
+	while (flags.digits-- > decplaces)
+			count += ft_putchar_fd('0',1);
+	return (count + ft_putabsnbr_fd(nbr, 1));
 }
-/* #include <stdio.h>
+#include <stdio.h>
 int	main(void)
 	{
-		printf("TESTE PARA 1\n");
-		ft_putnbr_fd(1,1);
-		printf("\nTESTE PARA 123\n");
+		Flag	flags;
+
+		int	n = -123;
+		flags.digits = 2;
+		flags.width = 4;
+		flags.space = 0;
+		flags.plus = 0;
+		printf("%4.2d\n",n);
+		ft_printnbr_fd(n,flags,1);
+		printf("\n");
+/* 		printf("\nTESTE PARA 123\n");
 		ft_putnbr_fd(123,1);
 		printf("\nTESTE PARA -15465\n");
 		ft_putnbr_fd(-15465,1);
@@ -94,5 +107,5 @@ int	main(void)
 		printf("\nTESTE PARA 2147483647\n");
 		ft_putnbr_fd(2147483647,1);
 		printf("\nTESTE PARA 0\n");
-		ft_putnbr_fd(0,1);
-	} */
+		ft_putnbr_fd(0,1); */
+	}

@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:21:25 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/06 22:16:25 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:19:54 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 //flag 0 não pode ser usada com a flag - nem com %s
- #include <stdio.h>
+/*  #include <stdio.h>
 int	main(void)
 {
 	int a;
@@ -111,4 +111,4 @@ int	main(void)
 	//printf("\n%d",ft_putnbr_fd(64684651, 1));
 	//ft_printf("%d", ft_printf("oLA TUDOP%d%sbeleza%c%i%d\nagora o unsigned%u%p\n",5,"oi",'c',10,68464654,9849846,s));
 	//printf("%d", ft_printf("oLA TUDOP%d%sbeleza%c%i%d\nagora o unsigned%u%p\n",5,"oi",'c',10,68464654,9849846,s));
-} 
+}  */
