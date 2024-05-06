@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:21:25 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/06 19:59:07 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:16:25 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,13 @@ int	ft_print_args(const char c,va_list args)
 	return (0);
 }
 
+
+
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	int	count;
+	int		count;
+	Flag	flags;
 
 	va_start(args, format);
 	count = 0;
@@ -81,7 +84,7 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 //flag 0 não pode ser usada com a flag - nem com %s
-/*  #include <stdio.h>
+ #include <stdio.h>
 int	main(void)
 {
 	int a;
@@ -90,18 +93,22 @@ int	main(void)
 	s = NULL;
 	//ft_putstr_fd(&num,1);
 	unsigned int n = num;
-	printf("%s",NULL);
-	ft_printf("oLA TUDOP%d%sbeleza%10c%i%d\nagora o unsigned%u\n",5,"oi",'c',10,"palavra", n);
-	printf("oLA TUDOP%d%sbeleza% -10c%i%d\nagora o unsigned%u\n",5,"oi",'c',10,"palavra", n);
-	ft_printf("%x\n",16);
-	printf("%3x\n",16);
-	ft_printf("%p\n",&num);
-	printf("%p\n",&num);
-	ft_printf("%-5%\n");
-	printf("%.2s\n","hello");
-	printf("\n%d",ft_putunbr_base_fd(64684651, "0123456789abcdef", 1));
-	printf("\n%d",ft_putnbr_base_fd(64684651, "0123456789abcdef", 1));
-	printf("\n%d",ft_putnbr_fd(64684651, 1));
-	ft_printf("%d", ft_printf("oLA TUDOP%d%sbeleza%c%i%d\nagora o unsigned%u%p\n",5,"oi",'c',10,68464654,9849846,s));
-	printf("%d", ft_printf("oLA TUDOP%d%sbeleza%c%i%d\nagora o unsigned%u%p\n",5,"oi",'c',10,68464654,9849846,s));
-}  */
+	printf("%d\n",123);
+	printf("%#+.3d\n",-123);
+	printf("%#+.4d\n",-123);
+	printf("%#+.d\n",123);
+	printf("%#+10d\n",123);
+	//ft_printf("oLA TUDOP%d%sbeleza%10c%i%d\nagora o unsigned%u\n",5,"oi",'c',10,"palavra", n);
+	//printf("oLA TUDOP%d%sbeleza% -10c%i%d\nagora o unsigned%u\n",5,"oi",'c',10,"palavra", n);
+	//ft_printf("%x\n",16);
+	//printf("%3x\n",16);
+	//ft_printf("%p\n",&num);
+	//printf("%p\n",&num);
+	//ft_printf("%-5%\n");
+	//printf("%.2s\n","hello");
+	//printf("\n%d",ft_putunbr_base_fd(64684651, "0123456789abcdef", 1));
+	//printf("\n%d",ft_putnbr_base_fd(64684651, "0123456789abcdef", 1));
+	//printf("\n%d",ft_putnbr_fd(64684651, 1));
+	//ft_printf("%d", ft_printf("oLA TUDOP%d%sbeleza%c%i%d\nagora o unsigned%u%p\n",5,"oi",'c',10,68464654,9849846,s));
+	//printf("%d", ft_printf("oLA TUDOP%d%sbeleza%c%i%d\nagora o unsigned%u%p\n",5,"oi",'c',10,68464654,9849846,s));
+} 
