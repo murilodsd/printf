@@ -6,15 +6,10 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:29:48 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/07 09:43:34 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:45:54 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/** Outputs the integer ’n’ to the given file descriptor.
-* @param n: The integer to be outputted.
-* @param fd: The file descriptor to write the output to.
-* @return number of character printed
-*/
 #include "ft_printf.h"
 
 static int	ft_countdec(long n_long)
