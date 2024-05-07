@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:21:25 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/07 19:21:20 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:13:13 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static int	ft_isflag(char c)
 	return (c == '+' || c == '-' || c == ' ' || c == '#' || c == '0' || c == '.');
 }
 
-int	ft_print_s_fd(char *s, int fd)
+/* int	ft_print_s_fd(char *s, int fd)
 {
 	if (!s)
 		return (ft_putstr_fd("(null)", fd));
 	return (ft_putstr_fd(s, fd));
-}
+} */
 
 int	ft_print_p_fd(unsigned long p, int fd)
 {
@@ -41,7 +41,7 @@ int	ft_print_args(const char c,va_list args, Params params)
 	else if (c == 'c')
 		return (ft_putchar_fd((char)va_arg(args, int), 1));
 	else if (c == 's')
-		return (ft_print_s_fd(va_arg(args, char *), 1));
+		return (ft_print_s_fd(va_arg(args, char *), params, 1));
 	else if (c == 'x')
 		return (ft_putnbr_hexabase_fd(va_arg(args, unsigned int), "0123456789abcdef", 1));
 	else if (c == 'X')
@@ -116,6 +116,7 @@ int	main(void)
 	int a;
  	int	num = -132;
 	char	*format = "#0+ 505.31d";
+	char	*s = NULL;
 	//ft_putstr_fd(&num,1);
 	unsigned int n = num;
 	Params	params;
@@ -124,7 +125,8 @@ int	main(void)
 	params.digits = 0;
 	params.width = 0;
 	//printf("%d\n",123);
-	printf("%#-+ 3.4da\n",-123);
+	printf("%10.5sa\n",s);
+	printf("%10.0sa\n","texto");
 	ft_printf("%-#+ 3.4da\n",-123);
 	//get_flags(&format,&params);
 	//a = 256;

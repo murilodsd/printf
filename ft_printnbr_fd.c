@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:42:11 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/07 20:06:11 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:14:09 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,40 +46,6 @@ static int	ft_putabsnbr_fd(int n, int fd)
 	count += ft_putchar_fd(nb % 10 + '0', fd);
 	return (count);
 }
-
-/* int	ft_printnbr_fd2(int nbr, Flag flags, int fd)
-{
-	int	count;
-	int	decplaces;
-	
-	count = 0;
-	decplaces = ft_countdec(nbr);
-	if (decplaces + (nbr < 0) >= params.width)
-	{
-		if (nbr < 0)
-			count += ft_putchar_fd('-',1);
-		if (decplaces >=.digits)
-			return (count + ft_putabsnbr_fd(nbr, 1));
-		while .digits-- > decplaces)
-			count += ft_putchar_fd('0',1);
-		return (count + ft_putabsnbr_fd(nbr, 1));
-	}
-	if (decplaces >=.digits)
-	{
-		while (params.width-- > decplaces + (nbr < 0))
-			count += ft_putchar_fd(' ',1);
-	}
-	else
-	{
-		while (params.width-- >.digits + (params.flags[' '] || params.flags['+'] || (nbr < 0)))
-			count += ft_putchar_fd(' ',1);
-	}
-	if (nbr < 0)
-			count += ft_putchar_fd('-',1);
-	while .digits-- > decplaces)
-			count += ft_putchar_fd('0',1);
-	return (count + ft_putabsnbr_fd(nbr, 1));
-} */
 
 static int	printflags(Params params, int nbr, int fd)
 {

@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:52:36 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/07 18:37:59 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:49:44 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int	ft_putnbr_hexabase_fd(unsigned int nbr, char *base, int fd);
 int	check_base(char *base);
 int	ft_putunbr_base_fd(long nbr, char *base, int fd);
 int	ft_printnbr_fd(int nbr, Params params, int fd);
+int	ft_print_s_fd(char *s, Params params, int fd);
 
 #endif
