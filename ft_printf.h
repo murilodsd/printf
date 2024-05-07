@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:52:36 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/06 21:56:21 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:37:59 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,18 @@
 
 # include "libft/libft.h"
 
-typedef struct flag
+typedef struct parameter
 {
-	int	plus;
-	int	zero;
-	int	space;
-	int	hash;
-	int	dot;
-	int	minus;
-	int	width;
-	int	digits;
-} Flag;
+	int	flags[256];
+		int	width;
+		int	digits;
+} Params;
 
 int	ft_printf(const char *format, ...);
 int	ft_putunbr_fd(unsigned int nb, int fd);
 int	ft_putnbr_hexabase_fd(unsigned int nbr, char *base, int fd);
 int	check_base(char *base);
 int	ft_putunbr_base_fd(long nbr, char *base, int fd);
+int	ft_printnbr_fd(int nbr, Params params, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:21:25 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/06 20:19:54 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:21:20 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	ft_print_p_fd(unsigned long p, int fd)
 	return (ft_putstr_fd("0x", fd) + ft_putunbr_base_fd(p, "0123456789abcdef", fd));
 }
 
-int	ft_print_args(const char c,va_list args)
+int	ft_print_args(const char c,va_list args, Params params)
 {
 	if (c == 'd' || c == 'i')	
-		return (ft_putnbr_fd(va_arg(args, int), 1));
+		return (ft_printnbr_fd(va_arg(args, int), params, 1));
 	else if (c == 'u')
-		return (ft_putunbr_fd((unsigned int)va_arg(args, int), 1));
+		return (ft_printnbr_fd((unsigned int)va_arg(args, int), params, 1));
 	else if (c == 'c')
 		return (ft_putchar_fd((char)va_arg(args, int), 1));
 	else if (c == 's')
@@ -53,14 +53,40 @@ int	ft_print_args(const char c,va_list args)
 	return (0);
 }
 
-
+void	get_flags(const char **format, Params *p_params)
+{
+	while (ft_isflag(**format) && **format != '.')
+	{	
+		p_params->flags[(int)(**format)] = 1;
+		(*format)++;
+	}
+	while (ft_isdigit(**format))
+	{	
+		p_params->width *= 10;
+		p_params->width += (**format - '0');
+		(*format)++;
+	}
+	if (**format == '.')
+	{
+		p_params->flags[(int)(**format)] = 1;
+		(*format)++;
+		while (ft_isdigit(**format))
+		{
+			p_params->digits *= 10;
+			p_params->digits += (**format - '0');
+			(*format)++;
+		}
+	}
+}
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int		count;
-	Flag	flags;
+	Params	params;
 
+	params.digits = 0;
+	params.width = 0;
 	va_start(args, format);
 	count = 0;
 	while (*format)
@@ -73,10 +99,10 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			while (ft_isflag(*format) || ft_isdigit(*format))
-				format++;
+			ft_bzero(params.flags, sizeof(params.flags));
+			get_flags(&format, &params);
 		}
-		count += ft_print_args(*format, args);
+		count += ft_print_args(*format, args, params);
 		if (*format != '\0')
 			format++;
 	}
@@ -89,15 +115,28 @@ int	main(void)
 {
 	int a;
  	int	num = -132;
-	char	*s;
-	s = NULL;
+	char	*format = "#0+ 505.31d";
 	//ft_putstr_fd(&num,1);
 	unsigned int n = num;
-	printf("%d\n",123);
-	printf("%#+.3d\n",-123);
-	printf("%#+.4d\n",-123);
-	printf("%#+.d\n",123);
-	printf("%#+10d\n",123);
+	Params	params;
+
+	ft_bzero(params.flags, sizeof(params.flags));
+	params.digits = 0;
+	params.width = 0;
+	//printf("%d\n",123);
+	printf("%#-+ 3.4da\n",-123);
+	ft_printf("%-#+ 3.4da\n",-123);
+	//get_flags(&format,&params);
+	//a = 256;
+	//while (a--)
+	//{
+	//	if (params.flags[a])
+	//		printf("%c\n",a);
+	//}
+	//printf("digits %d\n",params.digits);
+	//printf("digits %d\n",params.width);
+	//printf("%#+5.3d\n",123);
+	//ft_printf("%#+.d\n",123);
 	//ft_printf("oLA TUDOP%d%sbeleza%10c%i%d\nagora o unsigned%u\n",5,"oi",'c',10,"palavra", n);
 	//printf("oLA TUDOP%d%sbeleza% -10c%i%d\nagora o unsigned%u\n",5,"oi",'c',10,"palavra", n);
 	//ft_printf("%x\n",16);

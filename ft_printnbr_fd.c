@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/25 13:29:48 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/07 09:45:54 by mde-souz         ###   ########.fr       */
+/*   Created: 2024/05/07 19:42:11 by mde-souz          #+#    #+#             */
+/*   Updated: 2024/05/07 19:57:23 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,100 +54,100 @@ static int	ft_putabsnbr_fd(int n, int fd)
 	
 	count = 0;
 	decplaces = ft_countdec(nbr);
-	if (decplaces + (nbr < 0) >= flags.width)
+	if (decplaces + (nbr < 0) >= params.width)
 	{
 		if (nbr < 0)
 			count += ft_putchar_fd('-',1);
-		if (decplaces >= flags.digits)
+		if (decplaces >=.digits)
 			return (count + ft_putabsnbr_fd(nbr, 1));
-		while (flags.digits-- > decplaces)
+		while .digits-- > decplaces)
 			count += ft_putchar_fd('0',1);
 		return (count + ft_putabsnbr_fd(nbr, 1));
 	}
-	if (decplaces >= flags.digits)
+	if (decplaces >=.digits)
 	{
-		while (flags.width-- > decplaces + (nbr < 0))
+		while (params.width-- > decplaces + (nbr < 0))
 			count += ft_putchar_fd(' ',1);
 	}
 	else
 	{
-		while (flags.width-- > flags.digits + (flags.space || flags.plus || (nbr < 0)))
+		while (params.width-- >.digits + (params.flags[' '] || params.flags['+'] || (nbr < 0)))
 			count += ft_putchar_fd(' ',1);
 	}
 	if (nbr < 0)
 			count += ft_putchar_fd('-',1);
-	while (flags.digits-- > decplaces)
+	while .digits-- > decplaces)
 			count += ft_putchar_fd('0',1);
 	return (count + ft_putabsnbr_fd(nbr, 1));
 } */
 
-static int	printflags(Flag flags, int nbr)
+static int	printflags(Params params, int nbr, int fd)
 {
-	
 	if (nbr < 0)
-		return (ft_putchar_fd('-',1));
-	else if (flags.plus)
-		return (ft_putchar_fd('+',1));
-	else if (flags.space)
-		return (ft_putchar_fd(' ',1));
+		return (ft_putchar_fd('-', fd));
+	else if (params.flags['+'])
+		return (ft_putchar_fd('+', fd));
+	else if (params.flags[' '])
+		return (ft_putchar_fd(' ', fd));
 	return (0);
 }
 
-static void	printspaces(Flag flags, int nbr, int *p_count)
+static void	printspaces(Params params, int nbr, int *p_count, int fd)
 {
 	int	digitsandflags;
 	int	decplacesandflags;
 	
-	digitsandflags = flags.digits + (flags.space || flags.plus || (nbr < 0));
-	decplacesandflags = ft_countdec(nbr) + (flags.space || flags.plus || (nbr < 0));
-	if (flags.minus != 1)
+	digitsandflags = params.digits + (params.flags[' '] || params.flags['+'] || (nbr < 0));
+	decplacesandflags = ft_countdec(nbr) + (params.flags[' '] || params.flags['+'] || (nbr < 0));
+	if (params.flags['-'] != 1)
 	{
-		while (flags.width - *p_count > decplacesandflags && flags.width > digitsandflags)
-			*p_count += ft_putchar_fd(' ',1);	
+		while (params.width - *p_count > decplacesandflags && params.width - *p_count  > digitsandflags)
+			*p_count += ft_putchar_fd(' ',fd);	
 	}
 	else
 	{
-		while (flags.width > *p_count)
-			*p_count += ft_putchar_fd(' ',1);
+		while (params.width > *p_count)
+			*p_count += ft_putchar_fd(' ',fd);
 	}
 }
 
-int	ft_printnbr_fd(int nbr, Flag flags, int fd)
+int	ft_printnbr_fd(int nbr, Params params, int fd)
 {
 	int	count;
 	int	decplaces;
 
 	decplaces = ft_countdec(nbr);
 	count = 0;
-	if (flags.minus != 1)
-		printspaces(flags, nbr, &count);
-	count += printflags(flags, nbr);
-	while (decplaces < flags.digits)
+	if (params.flags['-'] != 1)
+		printspaces(params, nbr, &count, fd);
+	count += printflags(params, nbr, fd);
+	while (decplaces < params.digits)
 	{
-		count += ft_putchar_fd('0',1);
-		flags.digits--;
+		count += ft_putchar_fd('0',fd);
+		params.digits--;
 	}
-	if (!flags.dot || flags.digits != 0 || nbr != 0)
-		count += ft_putabsnbr_fd(nbr, 1);
-	if (flags.minus == 1)
-		printspaces(flags, nbr, &count);
+	if (!params.flags['.'] || params.digits != 0 || nbr != 0)
+		count += ft_putabsnbr_fd(nbr, fd);
+	if (params.flags['-'] == 1)
+		printspaces(params, nbr, &count, fd);
 	return (count);
 }
 #include <stdio.h>
 int	main(void)
 	{
-		Flag	flags;
+		Params	params;
 
-		int	n = 5;
-		flags.digits = 3;
-		flags.width = 7;
-		flags.space = 1;
-		flags.minus = 1;
-		flags.plus = 0;
-		flags.dot = 1;
+		int	n = -321;
+		params.digits = 17;
+		params.width = 24;
+		params.flags[' '] = 1;
+		params.flags['-'] = 0;
+		params.flags['+'] = 0;
+		params.flags['.'] = 1;
+		params.flags['0'] = 1;
 		printf("%d\n",n);
-		printf("% -7.3da\n",n);
-		ft_printnbr_fd(n,flags,1);
+		printf("% 024.17da\n",n);
+		ft_printnbr_fd(n,params,1);
 		printf("a\n");
 /* 		printf("\nTESTE PARA 123\n");
 		ft_putnbr_fd(123,1);
