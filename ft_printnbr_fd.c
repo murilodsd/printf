@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:42:11 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/07 19:57:23 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:06:11 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	ft_printnbr_fd(int nbr, Params params, int fd)
 		printspaces(params, nbr, &count, fd);
 	return (count);
 }
-#include <stdio.h>
+/* #include <stdio.h>
 int	main(void)
 	{
 		Params	params;
@@ -148,15 +148,15 @@ int	main(void)
 		printf("%d\n",n);
 		printf("% 024.17da\n",n);
 		ft_printnbr_fd(n,params,1);
-		printf("a\n");
-/* 		printf("\nTESTE PARA 123\n");
-		ft_putnbr_fd(123,1);
-		printf("\nTESTE PARA -15465\n");
-		ft_putnbr_fd(-15465,1);
-		printf("\nTESTE PARA -2147483648\n");
-		ft_putnbr_fd(-2147483648,1);
-		printf("\nTESTE PARA 2147483647\n");
-		ft_putnbr_fd(2147483647,1);
-		printf("\nTESTE PARA 0\n");
-		ft_putnbr_fd(0,1); */
-	}
+		//printf("a\n");
+		//printf("\nTESTE PARA 123\n");
+		//ft_putnbr_fd(123,1);
+		//printf("\nTESTE PARA -15465\n");
+		//ft_putnbr_fd(-15465,1);
+		//printf("\nTESTE PARA -2147483648\n");
+		//ft_putnbr_fd(-2147483648,1);
+		//printf("\nTESTE PARA 2147483647\n");
+		//ft_putnbr_fd(2147483647,1);
+		//printf("\nTESTE PARA 0\n");
+		//ft_putnbr_fd(0,1);
+	} */
