@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:35:41 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/07 20:49:34 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/08 06:37:15 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_print_s_fd(char *s, Params params, int fd)
 		length = params.digits; 
 	else if (s && !(params.flags['.'] && params.digits < (int)ft_strlen(s)))
 		length = ft_strlen(s);
-	else if (!s && params.digits >= 6)
+	else if (!s && (params.digits >= 6 || !params.flags['.']))
 		length = ft_strlen("(null)");	
 	count = 0;
 	if (params.flags['-'] != 1)
@@ -52,21 +52,21 @@ int	ft_print_s_fd(char *s, Params params, int fd)
 		printspaces(params, length, &count, fd);
 	return (count);
 }
-/* #include <stdio.h>
-int main(void)
+#include <stdio.h>
+/* int main(void)
 {
 	Params	params;
 
-	char	*s = "holla";
-	params.digits = 3;
-	params.width = 0;
+	char	*s = NULL;
+	params.digits = 0;
+	params.width = 23;
 	params.flags[' '] = 0;
 	params.flags['-'] = 0;
 	params.flags['+'] = 0;
-	params.flags['.'] = 1;
+	params.flags['.'] = 0;
 	params.flags['0'] = 0;
 	
-	printf("%.3sa\n",s);
+	printf("%23sa\n",s);
 	ft_print_s_fd(s,params,1);
 	printf("a\n");
 	return 0;
