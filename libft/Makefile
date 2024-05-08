@@ -11,7 +11,7 @@ ft_isalnum.c ft_memmove.c ft_striteri.c ft_strtrim.c \
 ft_isalpha.c ft_memset.c ft_strjoin.c ft_substr.c \
 ft_isascii.c ft_putchar_fd.c ft_strlcat.c \
 ft_isdigit.c ft_putendl_fd.c ft_strlcpy.c ft_tolower.c \
-ft_isprint.c ft_putnbr_fd.c ft_strlen.c ft_toupper.c
+ft_isprint.c ft_putnbr_fd.c ft_strlen.c ft_toupper.c ft_countdec.c
 OBJS=$(SRCS:.c=.o)
 BONUS_SRCS= ft_lstadd_front_bonus.c ft_lstadd_back_bonus.c \
 ft_lstclear_bonus.c ft_lstdelone_bonus.c ft_lstiter_bonus.c \

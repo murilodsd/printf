@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:52:03 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/02 14:49:29 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:53:16 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,6 @@ representing the integer received as an argument.
 Negative numbers must be handled.*/
 
 #include "libft.h"
-
-static int	ft_countdec(long n_long)
-{
-	int	count;
-
-	count = 1;
-	while (n_long > 9)
-	{
-		n_long /= 10;
-		count++;
-	}
-	return (count);
-}
 
 static void	ft_fillarray(char *p, long n_long, size_t size)
 {
