@@ -4,7 +4,8 @@ AR=ar
 ARFLAGS=rcs
 NAME=libftprintf.a
 OBJS=ft_printf.o ft_putunbr_fd.o ft_check_base.o ft_putunbr_base_fd.o \
-ft_putnbr_base_fd.o ft_printnbr_fd.o ft_print_s_fd.o
+ft_printnbr_fd.o ft_print_s_fd.o ft_printnbr_base_fd.o ft_printchar_fd.o \
+ft_print_p_fd.o
 INCLUDE=./
 RM=rm -f
 

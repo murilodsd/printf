@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:46:07 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/06 16:42:19 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:24:32 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	convert(unsigned long nbr, char *base, int fd)
 	count = 0;
 	if (nbr < length)
 	{
-		ft_putchar_fd(base[nbr % length],fd);
+		ft_putchar_fd(base[nbr % length], fd);
 		count++;
 	}
 	else

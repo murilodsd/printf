@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 07:38:34 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/06 16:42:21 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:24:42 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int	ft_putunbr_fd(unsigned int nb, int fd)
 {
 	int	count;
-	
+
 	count = 0;
 	if (nb < 10)
 	{

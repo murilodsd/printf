@@ -1,51 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printnbr_fd.c                                   :+:      :+:    :+:   */
+/*   ft_printnbr_base_fd.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 19:42:11 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/08 15:52:25 by mde-souz         ###   ########.fr       */
+/*   Created: 2024/05/08 13:55:16 by mde-souz          #+#    #+#             */
+/*   Updated: 2024/05/08 19:22:53 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_putabsnbr_fd(long n, int fd)
+static int	ft_putnbr_hexabase_fd(unsigned int nbr, char *base, int fd)
 {
-	unsigned int	nb;
-	int				count;
+	int		count;
 
 	count = 0;
-	if (n < 0)
-		nb = -n;
+	if (nbr < 16)
+		count += ft_putchar_fd(base[nbr % 16], fd);
 	else
-		nb = n;
-	if (nb < 10)
 	{
-		count += ft_putchar_fd(nb + '0', fd);
-		return (count);
+		count += ft_putnbr_hexabase_fd(nbr / 16, base, fd);
+		count += ft_putnbr_hexabase_fd(nbr % 16, base, fd);
 	}
-	count += ft_putabsnbr_fd(nb / 10, fd);
-	count += ft_putchar_fd(nb % 10 + '0', fd);
 	return (count);
 }
 
-static int	printsignal(t_params params, long nbr, int fd)
+static int	ft_countnbr_hexabase_fd(unsigned int nbr)
 {
-	int	dashprinted;
-	int	*flags;
+	int	count;
 
-	flags = params.flags;
-	dashprinted = flags['-'] != 1 && flags['0'] && !flags['.'];
-	if (nbr < 0 && !dashprinted)
-		return (ft_putchar_fd('-', fd));
-	else if (flags['+'])
-		return (ft_putchar_fd('+', fd));
-	else if (flags[' '])
-		return (ft_putchar_fd(' ', fd));
-	return (0);
+	count = 0;
+	if (nbr < 16)
+		count ++;
+	else
+	{
+		count += ft_countnbr_hexabase_fd(nbr / 16);
+		count += ft_countnbr_hexabase_fd(nbr % 16);
+	}
+	return (count);
 }
 
 static void	printstart(t_params params, long nbr, int *p_count, int fd)
@@ -56,7 +50,9 @@ static void	printstart(t_params params, long nbr, int *p_count, int fd)
 	int	needspaceforsignal;
 
 	flags = params.flags;
-	needspaceforsignal = (flags[' '] || flags['+'] || (nbr < 0));
+	needspaceforsignal = ((flags[' '] || flags['+'] || (nbr < 0))
+			&& (params.tag == 'i' || params.tag == 'd'))
+		+ 2 * (flags['#']);
 	digitsandflags = params.digits + needspaceforsignal;
 	decplacesandflags = params.decplaces + needspaceforsignal;
 	if (nbr < 0 && flags['0'] && !flags['.'])
@@ -87,54 +83,67 @@ static void	printwidth(t_params params, long nbr, int *p_count, int fd)
 	}
 }
 
-int	ft_printnbr_fd(long nbr, t_params params, int fd)
+int	ft_printnbr_base_fd(long nbr, t_params params, char *base, int fd)
 {
 	int	count;
 	int	shouldignorezero;
 
 	shouldignorezero = (params.flags['.'] && params.digits == 0 && nbr == 0);
-	params.decplaces = ft_countdec(nbr) - shouldignorezero;
+	params.decplaces = ft_countnbr_hexabase_fd(nbr) - shouldignorezero;
 	count = 0;
 	if (params.flags['-'] != 1)
 		printwidth(params, nbr, &count, fd);
-	count += printsignal(params, nbr, fd);
 	while (params.decplaces < params.digits)
 	{
 		count += ft_putchar_fd('0', fd);
 		params.digits--;
 	}
 	if (!shouldignorezero)
-		count += ft_putabsnbr_fd(nbr, fd);
+	{
+		if (params.flags['#'])
+			count += ft_putstr_fd(ft_strjoin("0", &(params.tag)), fd);
+		count += ft_putnbr_hexabase_fd(nbr, base, fd);
+	}
 	if (params.flags['-'] == 1)
 		printwidth(params, nbr, &count, fd);
 	return (count);
 }
 /* #include <stdio.h>
-int	main(void)
-	{
-		t_params	params;
-
-		int	n = 17;
-		params.digits = 0;
-		params.width = 0;
-		params.flags[' '] = 0;
-		params.flags['-'] = 0;
-		params.flags['+'] = 0;
-		params.flags['.'] = 0;
-		params.flags['0'] = 0;
-		printf("%i\n",n);
-		printf("this %i number\n", n);
-		ft_printf("this %i number\n", n);
-		//ft_printnbr_fd(n,params,1);
-		//printf("a\n");
-		//printf("\nTESTE PARA 123\n");
-		//ft_putnbr_fd(123,1);
-		//printf("\nTESTE PARA -15465\n");
-		//ft_putnbr_fd(-15465,1);
-		//printf("\nTESTE PARA -2147483648\n");
-		//ft_putnbr_fd(-2147483648,1);
-		//printf("\nTESTE PARA 2147483647\n");
-		//ft_putnbr_fd(2147483647,1);
-		//printf("\nTESTE PARA 0\n");
-		//ft_putnbr_fd(0,1);
-	} */
+int main (void)
+{
+t_params *p_params;
+t_params params;
+p_params = &params;
+ft_bzero(&params,sizeof(p_params)); 
+printf("%d\n",p_params->width);
+printf("%#7Xa\n", 33);
+ft_printf("%#7Xa\n", 33);
+printf("%3xa\n", 0);
+ft_printf("%3xa\n", 0);
+printf("%5xa\n", 52625);
+ft_printf("%5xa\n", 52625);
+printf("%-7xa\n", 33);
+ft_printf("%-7xa\n", 33);
+printf("%-3xa\n", 0);
+ft_printf("%-3xa\n", 0);
+printf("%-5xa\n", 52625);
+ft_printf("%-5xa\n", 52625);
+printf("%.5xa\n", 21);
+ft_printf("%.5xa\n", 21);
+printf("%.3xa\n", 0);
+ft_printf("%.3xa\n", 0);
+printf("%05xa\n", 43);
+ft_printf("%05xa\n", 43);
+printf("%03xa\n", 0);
+ft_printf("%03xa\n", 0);
+//ft_printf("%8.5x", 34);
+//ft_printf("%8.5x", 0);
+//ft_printf("%8.3x", 8375);
+//ft_printf("%2.7x", 3267);
+//ft_printf("%-8.5x", 34);
+//ft_printf("%08.5x", 0);
+//ft_printf("%-8.5x", 0);
+//ft_printf("%-8.3x", 8375);
+//ft_printf("%-2.7x", 3267);
+//ft_printf("%08.5x", 34);
+} */

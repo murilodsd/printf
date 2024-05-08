@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:21:25 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/08 13:44:48 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:24:55 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,48 +19,36 @@ static int	ft_isflag(char c)
 		|| c == '0' || c == '.');
 }
 
-/* int	ft_print_s_fd(char *s, int fd)
+int	ft_print_args(va_list args, t_params params)
 {
-	if (!s)
-		return (ft_putstr_fd("(null)", fd));
-	return (ft_putstr_fd(s, fd));
-} */
+	unsigned int	va_arg_ui;
 
-int	ft_print_p_fd(unsigned long p, int fd)
-{
-	if (!p)
-		return (ft_putstr_fd("(nil)", fd));
-	return (ft_putstr_fd("0x", fd)
-		+ ft_putunbr_base_fd(p, BASE16_L, fd));
-}
-
-int	ft_print_args(const char c, va_list args, t_params params)
-{
-	if (c == 'd' || c == 'i')
+	if (params.tag == 'd' || params.tag == 'i')
 		return (ft_printnbr_fd(va_arg(args, int), params, 1));
-	else if (c == 'u')
+	else if (params.tag == 'u')
 		return (ft_printnbr_fd((unsigned int)va_arg(args, int), params, 1));
-	else if (c == 'c')
-		return (ft_putchar_fd((char)va_arg(args, int), 1));
-	else if (c == 's')
+	else if (params.tag == 'c')
+		return (ft_printchar_fd(va_arg(args, int), params, 1));
+	else if (params.tag == 's')
 		return (ft_print_s_fd(va_arg(args, char *), params, 1));
-	else if (c == 'x')
-		return (ft_putnbr_hexabase_fd(va_arg(args, unsigned int), BASE16_L, 1));
-	else if (c == 'X')
-		return (ft_putnbr_hexabase_fd(va_arg(args, unsigned int), BASE16_U, 1));
-	else if (c == 'p')
-		return (ft_print_p_fd((unsigned long)va_arg(args, long), 1));
-	else if (c == '%')
+	else if (params.tag == 'x' || params.tag == 'X')
+	{
+		va_arg_ui = va_arg(args, unsigned int);
+		if (params.tag == 'x')
+			return (ft_printnbr_base_fd(va_arg_ui, params, BASE16_L, 1));
+		else if (params.tag == 'X')
+			return (ft_printnbr_base_fd(va_arg_ui, params, BASE16_U, 1));
+	}
+	else if (params.tag == 'p')
+		return (ft_print_p_fd((unsigned long)va_arg(args, long), params, 1));
+	else if (params.tag == '%')
 		return (ft_putchar_fd('%', 1));
 	return (0);
 }
 
 void	get_flags(const char **format, t_params *p_params)
 {
-	ft_bzero(p_params->flags, sizeof(p_params->flags));
-	p_params->width = 0;
-	p_params->digits = 0;
-	p_params->decplaces = 0;
+	ft_bzero(p_params, sizeof(t_params));
 	while (ft_isflag(**format) && **format != '.')
 	{
 		p_params->flags[(int)(**format)] = 1;
@@ -103,7 +91,8 @@ int	ft_printf(const char *format, ...)
 			format++;
 			get_flags(&format, &params);
 		}
-		count += ft_print_args(*format, args, params);
+		params.tag = *format;
+		count += ft_print_args(args, params);
 		if (*format != '\0')
 			format++;
 	}
@@ -119,21 +108,18 @@ int	main(void)
 	char	*format = "#0+ 505.31d";
 	//ft_putstr_fd(&num,1);
 	unsigned int n = num;
-	t_params	params;
 
 	char	*s = NULL;
 	char	*s2 = "bitch";
 	unsigned int u = 4294967295;
-	params.digits = 0;
-	params.width = 0;
-	params.flags[' '] = 0;
-	params.flags['-'] = 0;
-	params.flags['+'] = 0;
-	params.flags['.'] = 0;
-	params.flags['0'] = 0;
 	
-	printf("%ua\n", u);
-	ft_printf("%ua\n", u);
+	ft_printf("%23p\n" ,(void*)5251690933477523038lu);
+	printf("%23p\n" ,(void*)5251690933477523038lu);
+	printf("%15p\n", &num);
+	ft_printf("%15p\n", &num);
+	printf("%12p\n", s);
+	ft_printf("%12p\n", s);
+	//ft_printf("%.p\n", 'a');
 	//printf("%d\n",123);
 	//ft_printf("%-#+ 3.4da\n",-123);
 	//get_flags(&format,&params);
