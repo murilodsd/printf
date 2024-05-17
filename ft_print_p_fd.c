@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:26:29 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/08 19:19:35 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:54:57 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_print_p_fd(unsigned long p, t_params params, int fd)
 	int	count;
 	int	length;
 
-	length = ft_countnbr_hexabase_fd(p) + ft_strlen("0x");
+	length = ft_strlen("0x") + ft_countnbr_hexabase_fd(p);
 	count = 0;
 	if (params.flags['-'] != 1)
 		while ((p && params.width - count > length)
@@ -43,7 +43,7 @@ int	ft_print_p_fd(unsigned long p, t_params params, int fd)
 	else
 	{
 		count += ft_putstr_fd("0x", fd);
-		count += ft_putunbr_base_fd(p, BASE16_L, fd);
+		count += ft_putnbr_hexabase_fd(p, BASE16_L, fd);
 	}
 	if (params.flags['-'] == 1)
 		while (params.width > count)

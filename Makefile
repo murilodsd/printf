@@ -1,11 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/05/14 16:28:15 by mde-souz          #+#    #+#              #
+#    Updated: 2024/05/14 16:28:17 by mde-souz         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC=cc
 CCFLAGS=-Wall -Wextra -Werror
 AR=ar
 ARFLAGS=rcs
 NAME=libftprintf.a
-OBJS=ft_printf.o ft_putunbr_fd.o ft_check_base.o ft_putunbr_base_fd.o \
-ft_printnbr_fd.o ft_print_s_fd.o ft_printnbr_base_fd.o ft_printchar_fd.o \
-ft_print_p_fd.o
+OBJS=ft_printf.o ft_print_p_fd.o \
+ft_printnbr_fd.o ft_print_s_c_fd.o ft_printnbr_base_fd.o
 INCLUDE=./
 RM=rm -f
 
@@ -20,7 +31,6 @@ $(NAME): $(OBJS)
 bonus: all
 
 %.o: %.c
-#$(CC) -c $< -o $@ -I $(INCLUDE)
 	$(CC) $(CCFLAGS) -c $< -o $@ -I $(INCLUDE)
 
 clean:
@@ -32,3 +42,5 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY: all bonus clean fclean re

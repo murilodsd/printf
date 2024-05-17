@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_s_fd.c                                    :+:      :+:    :+:   */
+/*   ft_print_s_c_fd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:35:41 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/08 12:12:47 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:41:13 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	printspaces(t_params params, int length, int *p_count, int fd)
+static void	printwidth(t_params params, int length, int *p_count, int fd)
 {
 	if (params.flags['-'] != 1)
 	{
@@ -24,6 +24,21 @@ static void	printspaces(t_params params, int length, int *p_count, int fd)
 		while (params.width > *p_count)
 			*p_count += ft_putchar_fd(' ', fd);
 	}
+}
+
+int	ft_printchar_fd(char c, t_params params, int fd)
+{
+	int	count;
+	int	length;
+
+	length = 1;
+	count = 0;
+	if (params.flags['-'] != 1)
+		printwidth(params, length, &count, fd);
+	count += ft_putchar_fd(c, fd);
+	if (params.flags['-'] == 1)
+		printwidth(params, length, &count, fd);
+	return (count);
 }
 
 int	ft_print_s_fd(char *s, t_params params, int fd)
@@ -40,7 +55,7 @@ int	ft_print_s_fd(char *s, t_params params, int fd)
 		length = ft_strlen("(null)");
 	count = 0;
 	if (params.flags['-'] != 1)
-		printspaces(params, length, &count, fd);
+		printwidth(params, length, &count, fd);
 	if (!s && (!params.flags['.'] || params.digits >= 6))
 		count += ft_putstr_fd("(null)", fd);
 	else
@@ -49,7 +64,7 @@ int	ft_print_s_fd(char *s, t_params params, int fd)
 			count += ft_putchar_fd(*(s++), fd);
 	}
 	if (params.flags['-'] == 1)
-		printspaces(params, length, &count, fd);
+		printwidth(params, length, &count, fd);
 	return (count);
 }
 /* #include <stdio.h>

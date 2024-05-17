@@ -6,11 +6,10 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:21:25 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/08 19:24:55 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:47:20 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
 #include "ft_printf.h"
 
 static int	ft_isflag(char c)
@@ -77,6 +76,8 @@ int	ft_printf(const char *format, ...)
 	int			count;
 	t_params	params;
 
+	if (!format)
+		return (-1);
 	va_start(args, format);
 	count = 0;
 	while (*format)
@@ -99,7 +100,6 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (count);
 }
-//flag 0 não pode ser usada com a flag - nem com %s
 /* #include <stdio.h>
 int	main(void)
 {
@@ -113,12 +113,12 @@ int	main(void)
 	char	*s2 = "bitch";
 	unsigned int u = 4294967295;
 	
-	ft_printf("%23p\n" ,(void*)5251690933477523038lu);
-	printf("%23p\n" ,(void*)5251690933477523038lu);
-	printf("%15p\n", &num);
-	ft_printf("%15p\n", &num);
-	printf("%12p\n", s);
-	ft_printf("%12p\n", s);
+	//ft_printf("%23p\n" ,(void*)5251690933477523038lu);
+	//printf("%23p\n" ,(void*)5251690933477523038lu);
+	//printf("%15p\n", &num);
+	//ft_printf("%15p\n", &num);
+	//printf("%12p\n", s);
+	//ft_printf("%12p\n", s);
 	//ft_printf("%.p\n", 'a');
 	//printf("%d\n",123);
 	//ft_printf("%-#+ 3.4da\n",-123);
@@ -146,8 +146,8 @@ int	main(void)
 	//printf("\n%d",ft_putunbr_base_fd(64684651, "0123456789abcdef", 1));
 	//printf("\n%d",ft_putnbr_base_fd(64684651, "0123456789abcdef", 1));
 	//printf("\n%d",ft_putnbr_fd(64684651, 1));
-	//ft_printf("%d", ft_printf("oLA TUDOP%d%sbeleza%c%i%d\n
-	//agora o unsigned%u%p\n",5,"oi",'c',10,68464654,9849846,s));
-	//printf("%d", ft_printf("oLA TUDOP%d%sbeleza%c%i%d\n
-	//agora o unsigned%u%p\n",5,"oi",'c',10,68464654,9849846,s));
+	printf("\nft_printf %d\n", ft_printf("d %10.3d s %.3s c %10.5c i %i d % 
+	+-8d\nu %u p %p\n x %#x X %25X",5,"oi",'\0',10,8654,9675,s,65486,35468));
+	printf("\nprintf %d\n", printf("d %10.3d s %.3s c %10.5c i %i d % 
+	+-8d\nu %u p %p\n x %#x X %25X",5,"oi",'\0',10,8654,9675,s,65486,35468));
 } */

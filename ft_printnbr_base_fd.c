@@ -6,13 +6,13 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:55:16 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/08 19:22:53 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:11:29 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_putnbr_hexabase_fd(unsigned int nbr, char *base, int fd)
+int	ft_putnbr_hexabase_fd(unsigned long nbr, char *base, int fd)
 {
 	int		count;
 
@@ -27,7 +27,7 @@ static int	ft_putnbr_hexabase_fd(unsigned int nbr, char *base, int fd)
 	return (count);
 }
 
-static int	ft_countnbr_hexabase_fd(unsigned int nbr)
+static int	ft_countnbr_hexabase_fd(unsigned long nbr)
 {
 	int	count;
 
@@ -42,7 +42,7 @@ static int	ft_countnbr_hexabase_fd(unsigned int nbr)
 	return (count);
 }
 
-static void	printstart(t_params params, long nbr, int *p_count, int fd)
+static void	printstart(t_params params, int *p_count, int fd)
 {
 	int	digitsandflags;
 	int	decplacesandflags;
@@ -50,13 +50,9 @@ static void	printstart(t_params params, long nbr, int *p_count, int fd)
 	int	needspaceforsignal;
 
 	flags = params.flags;
-	needspaceforsignal = ((flags[' '] || flags['+'] || (nbr < 0))
-			&& (params.tag == 'i' || params.tag == 'd'))
-		+ 2 * (flags['#']);
+	needspaceforsignal = 2 * (flags['#']);
 	digitsandflags = params.digits + needspaceforsignal;
 	decplacesandflags = params.decplaces + needspaceforsignal;
-	if (nbr < 0 && flags['0'] && !flags['.'])
-		*p_count += ft_putchar_fd('-', fd);
 	while (params.width - *p_count > decplacesandflags
 		&& params.width - *p_count > digitsandflags)
 	{
@@ -65,16 +61,13 @@ static void	printstart(t_params params, long nbr, int *p_count, int fd)
 		else
 			*p_count += ft_putchar_fd(' ', fd);
 	}
-	if (nbr < 0 && flags['0'] && !flags['.']
-		&& params.width - *p_count == decplacesandflags)
-		*p_count += ft_putchar_fd('0', fd);
 }
 
-static void	printwidth(t_params params, long nbr, int *p_count, int fd)
+static void	printwidth(t_params params, int *p_count, int fd)
 {
 	if (params.flags['-'] != 1)
 	{
-		printstart(params, nbr, p_count, fd);
+		printstart(params, p_count, fd);
 	}
 	else
 	{
@@ -83,7 +76,7 @@ static void	printwidth(t_params params, long nbr, int *p_count, int fd)
 	}
 }
 
-int	ft_printnbr_base_fd(long nbr, t_params params, char *base, int fd)
+int	ft_printnbr_base_fd(unsigned long nbr, t_params params, char *base, int fd)
 {
 	int	count;
 	int	shouldignorezero;
@@ -92,7 +85,7 @@ int	ft_printnbr_base_fd(long nbr, t_params params, char *base, int fd)
 	params.decplaces = ft_countnbr_hexabase_fd(nbr) - shouldignorezero;
 	count = 0;
 	if (params.flags['-'] != 1)
-		printwidth(params, nbr, &count, fd);
+		printwidth(params, &count, fd);
 	while (params.decplaces < params.digits)
 	{
 		count += ft_putchar_fd('0', fd);
@@ -100,12 +93,15 @@ int	ft_printnbr_base_fd(long nbr, t_params params, char *base, int fd)
 	}
 	if (!shouldignorezero)
 	{
-		if (params.flags['#'])
-			count += ft_putstr_fd(ft_strjoin("0", &(params.tag)), fd);
+		if (params.flags['#'] && nbr)
+		{
+			count += ft_putchar_fd('0', fd);
+			count += ft_putchar_fd(params.tag, fd);
+		}
 		count += ft_putnbr_hexabase_fd(nbr, base, fd);
 	}
 	if (params.flags['-'] == 1)
-		printwidth(params, nbr, &count, fd);
+		printwidth(params, &count, fd);
 	return (count);
 }
 /* #include <stdio.h>
